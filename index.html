@@ -1,161 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PVData | John O'Sullivan</title>
-  <meta
-    name="description"
-    content="PVData is an interactive database of perovskite-silicon tandem solar cells, electrode materials, and indium use."
-  />
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-</head>
-<body>
-  <header class="site-header">
-    <div class="header-left">
-      <a href="../index.html" class="site-brand">
-        <img class="logo" src="images/pvdata-logo.png" alt="PVData logo" />
-      </a>
-    </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>John O'Sullivan | Semiconductor Materials and Interfaces</title>
+    <meta
+      name="description"
+      content="John O'Sullivan is an experimental researcher working on semiconductor materials, interfaces, thin films, and optoelectronic devices at the University of Oxford."
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --text: #18212b;
+        --muted: #5e6875;
+        --line: #d9dee5;
+        --line-soft: #e8ebef;
+        --accent: #264b63;
+        --accent-soft: #eef3f7;
+        --shadow: 0 1px 0 rgba(15, 23, 42, 0.03);
+        --radius: 10px;
+        --max: 1020px;
+      }
 
-    <div class="header-right">
-      <p class="site-tagline">
-        An interactive database of perovskite–silicon tandem solar cells,
-        electrode materials, and indium use.
-      </p>
-      <p class="site-links">
-        <a href="../index.html">Academic profile</a>
-        <span>·</span>
-        <a href="../blog.html">Research notes</a>
-        <span>·</span>
-        <a href="../cv.pdf">CV</a>
-      </p>
-    </div>
-  </header>
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+      }
 
-  <nav class="top-nav" aria-label="PVData navigation">
-    <button class="nav-btn active" data-target="home">Home</button>
-    <button class="nav-btn" data-target="database">Database</button>
-    <button class="nav-btn" data-target="figures">Figures</button>
-    <button class="nav-btn" data-target="explore">Explore</button>
-    <button class="nav-btn" data-target="about">About</button>
-  </nav>
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
 
-  <main class="page">
-    <section id="home" class="view active">
-      <div class="hero-card">
-        <div class="hero-text">
-          <h1>Welcome to PVData</h1>
+      .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px 56px; }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        padding: 22px 0 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .brand p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 6px;
+      }
+
+      nav a {
+        padding: 7px 10px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      nav a:hover {
+        border-color: var(--line);
+        background: #fafbfd;
+        text-decoration: none;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.55fr 0.85fr;
+        gap: 22px;
+        align-items: stretch;
+        margin-top: 24px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-main { padding: 34px; }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 16px;
+        color: var(--accent);
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .hero h2 {
+        margin: 0 0 14px;
+        font-size: clamp(2.15rem, 4vw, 3.4rem);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: 600;
+      }
+
+      .hero p {
+        margin: 0 0 16px;
+        font-size: 1.02rem;
+        color: #2e3742;
+        max-width: 70ch;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--text);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+
+      .hero-side {
+        padding: 24px;
+        display: grid;
+        gap: 14px;
+        align-content: start;
+      }
+
+      .mini {
+        padding: 16px;
+        border-radius: 8px;
+        background: #fbfcfd;
+        border: 1px solid var(--line-soft);
+      }
+
+      .mini h3 {
+        margin: 0 0 6px;
+        font-size: 0.96rem;
+        font-weight: 600;
+      }
+
+      .mini p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+      main { margin-top: 22px; display: grid; gap: 16px; }
+
+      section.card { padding: 26px 28px; }
+      section h3 {
+        margin: 0 0 12px;
+        font-size: 1.18rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .section-intro {
+        margin: 0 0 18px;
+        color: var(--muted);
+        max-width: 78ch;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .item {
+        padding: 16px;
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .item h4 { margin: 0 0 6px; font-size: 1rem; font-weight: 600; }
+      .item p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+      ul.clean {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      ul.clean li { margin: 7px 0; }
+
+      .pubs {
+        display: grid;
+        gap: 10px;
+      }
+
+      .pub {
+        padding: 16px;
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .pub strong { display: block; margin-bottom: 4px; font-weight: 600; }
+      .pub span { color: var(--muted); font-size: 0.95rem; }
+
+      footer {
+        margin-top: 18px;
+        padding: 18px 2px 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 860px) {
+        .hero, .grid-2 { grid-template-columns: 1fr; }
+        header { flex-direction: column; align-items: flex-start; }
+        nav { justify-content: flex-start; }
+      }
+
+      @media (max-width: 560px) {
+        .wrap { padding: 0 16px 40px; }
+        .hero-main, section.card, .hero-side { padding: 20px; }
+        .cta-row { flex-direction: column; }
+        .btn { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <h1>John O'Sullivan</h1>
+          <p>Postdoctoral Researcher, Department of Materials, University of Oxford</p>
+        </div>
+        <nav aria-label="Primary">
+          <a href="#research">Research</a>
+          <a href="#publications">Publications</a>
+          <a href="#teaching">Teaching</a>
+          <a href="#awards">Awards</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <div class="hero">
+        <div class="card hero-main">
+          <div class="eyebrow">Semiconductor materials and interfaces</div>
+          <h2>Experimental research in thin films, interfaces, and optoelectronic devices.</h2>
           <p>
-            PVData is an open, interactive database of perovskite–silicon tandem solar cells.
-            Explore device efficiencies, materials, layer architectures, and indium use from the literature.
+            I am an experimental researcher working on semiconductor materials, interfaces, thin films, and optoelectronic
+            devices. My work focuses on how material processing and interfacial design control charge transport,
+            optical losses, recombination, and long-term stability in functional devices.
           </p>
+          <p>
+            My background spans thin-film fabrication, electrical and optical characterisation, and device modelling.
+            I am particularly interested in materials systems where performance is limited by interfaces and where
+            careful experimental design can translate into scalable technologies.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="cv.pdf">Download CV</a>
+            <a class="btn" href="https://scholar.google.com/citations?user=-q1tRdQAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
+            <a class="btn" href="https://orcid.org/0000-0002-4136-0067" target="_blank" rel="noreferrer">ORCID</a>
+          </div>
+        </div>
 
-          <div class="feature">
-            <div class="feature-icon">▮▮▮</div>
-            <div>
-              <h3>Comprehensive Database</h3>
-              <p>Curated data from published literature on perovskite-silicon tandem solar cells.</p>
+        <aside class="card hero-side">
+          <div class="mini">
+            <h3>Current role</h3>
+            <p>Postdoctoral Researcher in the Department of Materials, University of Oxford</p>
+          </div>
+          <div class="mini">
+            <h3>Research focus</h3>
+            <p>Transparent conductors, semiconductor interfaces, thin-film oxides, and optoelectronic devices</p>
+          </div>
+          <div class="mini">
+            <h3>Teaching</h3>
+            <p>Laboratory demonstrating, student mentoring, outreach, and course instruction</p>
+          </div>
+        </aside>
+      </div>
+
+      <main>
+        <section class="card" id="research">
+          <h3>Research</h3>
+          <p class="section-intro">
+            My research is centred on understanding how materials properties and interfaces determine the behaviour of
+            semiconductor devices. This includes the interplay between conductivity, transparency, band alignment,
+            recombination, and stability.
+          </p>
+          <div class="grid-2">
+            <div class="item">
+              <h4>Transparent conductors</h4>
+              <p>Graphene, ZnO, AZO, and related thin films for optoelectronic and energy applications.</p>
+            </div>
+            <div class="item">
+              <h4>Interfaces and transport</h4>
+              <p>Energy alignment, contact resistance, interface passivation, and charge extraction.</p>
+            </div>
+            <div class="item">
+              <h4>Characterisation</h4>
+              <p>Hall effect, Van der Pauw, UV-Vis, Kelvin probe, X-ray absorption spectroscopy, Raman, and device testing.</p>
+            </div>
+            <div class="item">
+              <h4>Modelling</h4>
+              <p>Device-level simulations to connect measured material properties to performance limits.</p>
             </div>
           </div>
+        </section>
 
-          <div class="feature">
-            <div class="feature-icon">⌕</div>
-            <div>
-              <h3>Interactive Visualizations</h3>
-              <p>Explore trends in efficiency, materials, and indium intensity.</p>
+        <section class="card" id="publications">
+          <h3>Selected Publications</h3>
+          <p class="section-intro">A small selection of papers that best reflect my current research profile.</p>
+          <div class="pubs">
+            <div class="pub">
+              <strong>Transparent Conducting Electrodes for Perovskite–Silicon Tandem Solar Cells</strong>
+              <span><em>Nature Reviews Physics</em> (2026)</span>
+            </div>
+            <div class="pub">
+              <strong>Towards a Graphene Transparent Conducting Electrode for Perovskite/Silicon Tandem Solar Cells</strong>
+              <span><em>Progress in Photovoltaics</em> (2023)</span>
+            </div>
+            <div class="pub">
+              <strong>Impact of Precursor Dosing on the Surface Passivation of AZO/AlOx Stacks Formed Using Atomic Layer Deposition</strong>
+              <span><em>Energy Advances</em> (2025)</span>
             </div>
           </div>
+        </section>
 
-          <div class="feature">
-            <div class="feature-icon">↓</div>
-            <div>
-              <h3>Open and Transparent</h3>
-              <p>Download and reuse the data for your own research.</p>
+        <section class="card" id="teaching">
+          <h3>Teaching</h3>
+          <p class="section-intro">
+            I have experience supporting undergraduate teaching, practical classes, mentoring, and course instruction.
+          </p>
+          <ul class="clean">
+            <li>Laboratory demonstrator in the Department of Physics, University of Oxford.</li>
+            <li>Mentoring of MEng and DPhil students in experimental methods and data analysis.</li>
+            <li>Senior Course Instructor at the Centre for Talented Youth, Ireland.</li>
+            <li>Outreach ambassador and contributor to widening participation activities.</li>
+          </ul>
+        </section>
+
+        <section class="card" id="awards">
+          <h3>Awards and Service</h3>
+          <div class="grid-2">
+            <div class="item">
+              <h4>Awards</h4>
+              <p>EPSRC IAA Doctoral Prize; ESRF beamtime award; Bright SCIdea competition winner; competitive travel and research training awards.</p>
+            </div>
+            <div class="item">
+              <h4>Professional Service</h4>
+              <p>Invited reviewer for <em>ACS Applied Materials & Interfaces</em>.</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="hero-image">
-          <div class="hero-image-frame">
-            <img src="images/pvdata-logo.png" alt="PVData logo" />
-          </div>
-        </div>
-      </div>
+        <section class="card" id="contact">
+          <h3>Contact</h3>
+          <ul class="clean">
+            <li>Email: <a href="mailto:john.osullivan@materials.ox.ac.uk">john.osullivan@materials.ox.ac.uk</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/johnosullivan597" target="_blank" rel="noreferrer">linkedin.com/in/johnosullivan597</a></li>
+            <li>GitHub: add your repository link here</li>
+          </ul>
+        </section>
+      </main>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value">420+</div>
-          <div class="stat-label">Papers</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">36.1%</div>
-          <div class="stat-label">Record Efficiency</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">4</div>
-          <div class="stat-label">Front TCO Families</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value">0.15</div>
-          <div class="stat-label">Lowest Indium Intensity</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="database" class="view">
-      <div class="panel">
-        <h2>Database</h2>
-        <p>Next step: searchable table loaded from <code>data/tandem.csv</code>.</p>
-      </div>
-    </section>
-
-    <section id="figures" class="view">
-      <div class="panel">
-        <h2>Figures</h2>
-
-        <div class="figure-controls">
-          <label class="toggle">
-            <input type="checkbox" id="certified-only" checked />
-            Show certified values only
-          </label>
-        </div>
-
-        <div id="front-tco-plot" style="width: 100%; height: 650px;"></div>
-        <div id="indium-plot" style="width: 100%; height: 650px; margin-top: 30px;"></div>
-      </div>
-    </section>
-
-    <section id="explore" class="view">
-      <div class="panel">
-        <h2>Explore</h2>
-        <p>Next step: timeline, Pareto plot, Sankey diagram, and thickness trends.</p>
-      </div>
-    </section>
-
-    <section id="about" class="view">
-      <div class="panel">
-        <h2>About</h2>
-        <p>
-          PVData is a literature database for tandem solar-cell materials and performance.
-          It is a separate project site linked to John O'Sullivan's academic homepage.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>
-      PVData is maintained as an independent project page.
-      <a href="../index.html">Return to academic profile</a>
-    </p>
-  </footer>
-
-  <script src="js/config.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/figure_front_tco.js"></script>
-  <script src="js/figure_indium.js"></script>
-  <script src="js/main.js"></script>
-</body>
+      <footer>
+        © John O'Sullivan. University of Oxford.
+      </footer>
+    </div>
+  </body>
 </html>
