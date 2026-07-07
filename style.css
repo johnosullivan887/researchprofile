@@ -89,20 +89,15 @@ nav a:hover {
 
 .hero {
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: 180px 1fr;
+  gap: 28px;
+  align-items: start;
   margin-top: 34px;
 }
 
-.hero-photo {
-  display: flex;
-  justify-content: center;
-}
-
 .hero-photo img {
-  width: 220px;
-  height: 220px;
+  width: 180px;
+  height: 180px;
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid var(--line);
