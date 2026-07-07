@@ -8,15 +8,20 @@
       name="description"
       content="John O'Sullivan is an experimental researcher working on semiconductor materials, interfaces, thin films, and optoelectronic devices at the University of Oxford."
     />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="wrap">
-      <header>
+      <header class="site-header">
         <div class="brand">
-          <h1>John O'Sullivan</h1>
-          <p>Postdoctoral Researcher, Department of Materials, University of Oxford</p>
+          <img class="brand-logo" src="images/favicon.png" alt="JO logo" />
+          <div class="brand-text">
+            <h1>John O'Sullivan</h1>
+            <p>Postdoctoral Researcher, Department of Materials, University of Oxford</p>
+          </div>
         </div>
+
         <nav aria-label="Primary">
           <a href="#research">Research</a>
           <a href="#projects">Projects</a>
@@ -32,6 +37,7 @@
         </div>
 
         <div class="card hero-main">
+          <h2>Experimental research in semiconductor materials and interfaces.</h2>
           <p>
             I am a physicist and materials researcher working on semiconductor thin films, transparent conductors, and
             device interfaces for optoelectronic applications. My research combines fabrication, electrical and optical
@@ -72,13 +78,19 @@
         <section class="card" id="projects">
           <h3>Projects</h3>
           <div class="grid-2">
-            <div class="item">
-              <h4>PVData</h4>
-              <p>
-                An open, interactive database of perovskite--silicon tandem solar cells, electrode materials, and indium use.
-              </p>
-              <p><a href="https://johnosullivan887.github.io/pvdata/" target="_blank" rel="noreferrer">Visit PVData →</a></p>
+            <div class="item project-card">
+              <img class="project-logo" src="images/pvdata-logo.png" alt="PVData logo" />
+              <div>
+                <h4>PVData</h4>
+                <p>
+                  An open, interactive database of perovskite--silicon tandem solar cells, electrode materials, and indium use.
+                </p>
+                <p>
+                  <a href="https://johnosullivan887.github.io/pvdata/" target="_blank" rel="noreferrer">Visit PVData →</a>
+                </p>
+              </div>
             </div>
+
             <div class="item">
               <h4>Research Notes</h4>
               <p>Short technical notes on semiconductor physics, interfaces, characterisation, and ideas arising from my research.</p>
@@ -88,62 +100,38 @@
         </section>
 
         <section class="card" id="publications">
-          <h3>Selected Publications</h3>
-        
+          <h3>Featured Publications</h3>
           <div class="pubs">
-        
             <div class="pub">
               <strong>
-                <a href="https://doi.org/10.1038/s42254-026-00938-5"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                  Transparent Conducting Electrodes for Perovskite–Silicon Tandem Solar Cells
+                <a href="https://doi.org/10.1038/s42254-026-00827-6" target="_blank" rel="noopener noreferrer">
+                  Transparent Conducting Electrodes for Perovskite--Silicon Tandem Solar Cells
                 </a>
               </strong>
-        
-              <span>
-                <em>Nature Reviews Physics</em> (2026)
-              </span>
+              <span><em>Nature Reviews Physics</em> (2026)</span>
             </div>
-        
             <div class="pub">
               <strong>
-                <a href="https://doi.org/10.1002/pip.3739"
-                   target="_blank"
-                   rel="noopener noreferrer">
+                <a href="https://doi.org/10.1002/pip.3726" target="_blank" rel="noopener noreferrer">
                   Towards a Graphene Transparent Conducting Electrode for Perovskite/Silicon Tandem Solar Cells
                 </a>
               </strong>
-        
-              <span>
-                <em>Progress in Photovoltaics</em> (2023)
-              </span>
+              <span><em>Progress in Photovoltaics</em> (2023)</span>
             </div>
-        
             <div class="pub">
               <strong>
-                <a href="https://doi.org/10.1039/d4ya00552j"
-                   target="_blank"
-                   rel="noopener noreferrer">
+                <a href="https://doi.org/10.1039/D5YA00072F" target="_blank" rel="noopener noreferrer">
                   Impact of Precursor Dosing on the Surface Passivation of AZO/AlOx Stacks Formed Using Atomic Layer Deposition
                 </a>
               </strong>
-        
-              <span>
-                <em>Energy Advances</em> (2025)
-              </span>
+              <span><em>Energy Advances</em> (2025)</span>
             </div>
-        
           </div>
-        
-          <p style="margin-top:20px;">
-            View my complete publication record on
-            <a href="https://scholar.google.com/citations?user=-q1tRdQAAAAJ&hl=en"
-               target="_blank">
-              Google Scholar
-            </a>.
+
+          <p class="publication-note">
+            Full publication list available on
+            <a href="https://scholar.google.com/citations?user=-q1tRdQAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>.
           </p>
-        
         </section>
 
         <section class="card" id="contact">
